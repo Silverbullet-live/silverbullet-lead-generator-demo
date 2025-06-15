@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Results - SilverBullet{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Generated Leads</h2>
+                
+                {% if results %}
+                    {% for lead in results %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ lead.company_name }}</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Industry:</strong> {{ lead.industry }}</p>
+                                    <p class="mb-1"><strong>Size:</strong> {{ lead.company_size }}</p>
+                                    <p class="mb-1"><strong>Location:</strong> {{ lead.location }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Contact:</strong> {{ lead.contact_name }}</p>
+                                    <p class="mb-1"><strong>Email:</strong> {{ lead.email }}</p>
+                                    <p class="mb-1"><strong>Phone:</strong> {{ lead.phone }}</p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <h6>Notes:</h6>
+                                <p class="card-text">{{ lead.notes }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        No leads were generated. Please try with different company information.
+                    </div>
+                {% endif %}
+
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Lead Qualifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
