@@ -1,3 +1,5 @@
+import sys
+sys.path.append('.')
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from agents.silverbullet_lead_generator import SilverBulletLeadGenerator
 import os
@@ -41,5 +43,22 @@ def generate():
     
     return render_template('results.html', results=results)
 
-if __name__ == '__main__':
-    app.run(debug=True) 
+
+    # Render login page
+    rendered_login = render_template('login.html')
+    with open('static_site/login.html', 'w') as f:
+        f.write(rendered_login)
+
+    # Render lead qualifier page (if you have one)
+    rendered_lead_qualifier = render_template('lead_qualifier.html')
+    with open('static_site/lead_qualifier.html', 'w') as f:
+        f.write(rendered_lead_qualifier)
+
+    # Render results page (if you have one)
+    rendered_results = render_template('results.html', results=[])
+    with open('static_site/results.html', 'w') as f:
+        f.write(rendered_results)
+
+    # Optionally, copy login.html as index.html for GitHub Pages
+    with open('static_site/login.html', 'r') as src, open('static_site/index.html', 'w') as dst:
+        dst.write(src.read()) 
